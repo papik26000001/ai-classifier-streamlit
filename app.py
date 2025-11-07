@@ -21,6 +21,7 @@ import pandas as pd
 import streamlit as st
 import google.generativeai as genai
 import gc
+import ast
 
 # === 2. Налаштування сторінки ===
 st.set_page_config(page_title="AI Класифікатор (Gemini)", layout="wide")
