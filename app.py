@@ -34,7 +34,8 @@ MODEL_NAME = "gemini-2.5-flash-lite"
 
 # === 3. Завантаження конфігурації ===
 CONFIG_FILE = "config.txt"
-fl = False
+# Булевий прапор — чи ключі завантажені з Streamlit Secrets (означає, що ми у хмарі)
+fl = hasattr(st, "secrets") and len(st.secrets) > 0
 # --- універсальна функція ---
 def load_config():
     """
@@ -46,7 +47,6 @@ def load_config():
     # 1. Якщо є Streamlit Secrets (Cloud)
     try:    
         if hasattr(st, "secrets") and len(st.secrets) > 0:
-            fl = True
             for key, value in st.secrets.items():
                 # ✅ Якщо значення виглядає як список (наприклад "['a','b']") — перетворюємо
                 try:
