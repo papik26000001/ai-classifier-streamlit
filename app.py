@@ -46,7 +46,12 @@ def load_config():
     try:    
         if hasattr(st, "secrets") and len(st.secrets) > 0:
             for key, value in st.secrets.items():
-                cfg[key.strip()] = str(value).strip()
+                # ✅ Якщо значення виглядає як список (наприклад "['a','b']") — перетворюємо
+                try:
+                    val = ast.literal_eval(str(value))
+                except Exception:
+                    val = str(value).strip()
+                cfg[key.strip()] = val
     except Exception:
         pass # 🔹 ігноруємо помилку відсутності secrets.toml
 
