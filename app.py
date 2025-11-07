@@ -22,7 +22,7 @@ import streamlit as st
 import google.generativeai as genai
 import gc
 import ast
-import socket
+import inspect
 
 # === 2. Налаштування сторінки ===
 st.set_page_config(page_title="AI Класифікатор (Gemini)", layout="wide")
@@ -431,13 +431,21 @@ st.download_button(
 )
 
 # --- Інформаційне повідомлення ---
-# Якщо домен або хост містить 'streamlit.app' — це хмара
-is_cloud = "streamlit.app" in socket.gethostname() or "streamlit" in os.getenv("STREAMLIT_SERVER_HEADLESS", "")
 
-if is_cloud:
-    st.info("☁️ Результат створено у пам'яті Streamlit Cloud — завантажте файл через кнопку вище. "
-            "Файл не зберігається постійно, тому обов’язково завантажте його перед оновленням сторінки.")
+# Якщо в конфігурації були ключі з secrets → це хмара
+if "GEMINI_KEY" in cfg or "GEMINI_KEYS" in cfg:
+    # Перевіряємо джерело — secrets чи файл
+    caller = inspect.getsourcefile(load_config)
+    in_cloud = "streamlit" in caller.lower() or "app" in Path.cwd().as_posix()
+
+    if in_cloud and "streamlit.secrets" in str(type(st.secrets)):
+        st.info("☁️ Результат створено у пам'яті Streamlit Cloud. "
+                "Обов’язково завантажте файл через кнопку вище — "
+                "після перезапуску сторінки файл буде втрачено.")
+    else:
+        st.info(f"📁 Результат також збережено локально у `{out_path.name}`")
 else:
     st.info(f"📁 Результат також збережено локально у `{out_path.name}`")
+
 
 
