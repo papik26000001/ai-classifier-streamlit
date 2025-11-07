@@ -95,8 +95,7 @@ if os.path.exists(CONFIG_FILE):
         content = f.read()
 
 cfg = load_config()
-st.sidebar.write("🧩 DEBUG: Secrets keys loaded →", list(st.secrets.keys()) if hasattr(st, "secrets") else "No secrets")
-st.sidebar.write("🧩 DEBUG: cfg =", cfg)
+
 
 # --- модель ---
 MODEL_NAME = cfg.get("MODEL_NAME", "gemini-2.5-flash-lite")
