@@ -48,10 +48,15 @@ def load_config():
             for key, value in st.secrets.items():
                 # ✅ Якщо значення виглядає як список (наприклад "['a','b']") — перетворюємо
                 try:
-                    val = ast.literal_eval(str(value))
+                    text = str(value).strip()
+                    # Якщо виглядає як список у лапках — видаляємо зовнішні лапки і парсимо
+                    if text.startswith('"[') and text.endswith('"'):
+                        text = text[1:-1]
+                    val = ast.literal_eval(text)
                 except Exception:
                     val = str(value).strip()
                 cfg[key.strip()] = val
+
     except Exception:
         pass # 🔹 ігноруємо помилку відсутності secrets.toml
 
