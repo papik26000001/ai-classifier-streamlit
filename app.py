@@ -34,7 +34,7 @@ MODEL_NAME = "gemini-2.5-flash-lite"
 
 # === 3. Завантаження конфігурації ===
 CONFIG_FILE = "config.txt"
-
+fl = False
 # --- універсальна функція ---
 def load_config():
     """
@@ -43,7 +43,6 @@ def load_config():
     2. Якщо є локальний config.txt → модель, промпт, ключі (якщо локально)
     """
     cfg = {}
-    fl = False
     # 1. Якщо є Streamlit Secrets (Cloud)
     try:    
         if hasattr(st, "secrets") and len(st.secrets) > 0:
