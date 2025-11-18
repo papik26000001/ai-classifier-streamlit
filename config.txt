@@ -1,4 +1,4 @@
-MODEL_NAME = gemini-2.5-flash-lite
+MODEL_NAME = gemini-2.5-flash
 
 PROMPT:
 Визнач, який пункт з класифікатора (ID) найточніше відповідає опису проблеми.

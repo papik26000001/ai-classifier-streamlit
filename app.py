@@ -26,7 +26,7 @@ import inspect
 
 # === 2. Налаштування сторінки ===
 st.set_page_config(page_title="AI Класифікатор (Gemini)", layout="wide")
-st.title("🤖 AI Класифікатор заявок")
+st.title("🤖 AI Класифікація даних за класифікатором")
 
 # Модель за замовчуванням (може бути перевизначена через config.txt)
 MODEL_NAME = "gemini-2.5-flash-lite"
