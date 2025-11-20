@@ -137,7 +137,7 @@ if "key_index" not in st.session_state:
 def switch_key():
     st.session_state.key_index = (st.session_state.key_index + 1) % len(KEYS)
     genai.configure(api_key=KEYS[st.session_state.key_index])
-    st.sidebar.info(f"🔄 Перемкнулися на ключ #{st.session_state.key_index+1}")
+    st.sidebar.info(f"🔄 ключ #{st.session_state.key_index+1}")
 
 genai.configure(api_key=KEYS[st.session_state.key_index])
 st.sidebar.write(f"🔹 Модель: `{MODEL_NAME}`")
@@ -383,7 +383,7 @@ for i, idx in enumerate(rows_to_process, start=1):
         except Exception as e:
             err = str(e)
             if "429" in err:
-                st.sidebar.warning(f"⚠️ Перевищено ліміт, перемикаємо ключ (спроба {attempt+1}/3)...")
+                #st.sidebar.warning(f"⚠️ Перевищено ліміт, перемикаємо ключ (спроба {attempt+1}/3)...")
                 switch_key()
                 model = genai.GenerativeModel(MODEL_NAME)
                 time.sleep(5)
